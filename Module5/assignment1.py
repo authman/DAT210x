@@ -18,7 +18,7 @@ matplotlib.style.use('ggplot') # Look Pretty
 
 
 
-def doKMeans(dataframe):
+def doKMeans(df):
   #
   # INFO: Plot your data with a '.' marker, with 0.3 alpha at the Longitude,
   # and Latitude locations in your dataset. Longitude = x, Latitude = y
@@ -27,13 +27,13 @@ def doKMeans(dataframe):
   ax.scatter(df.Longitude, df.Latitude, marker='.', alpha=0.3)
 
   #
-  # TODO: Filter dataframe so that you're only looking at Longitude and Latitude,
+  # TODO: Filter df so that you're only looking at Longitude and Latitude,
   # since the remaining columns aren't really applicable for this purpose.
   #
   # .. your code here ..
 
   #
-  # TODO: Use K-Means to try and find seven cluster centers in this dataframe.
+  # TODO: Use K-Means to try and find seven cluster centers in this df.
   #
   # .. your code here ..
 
