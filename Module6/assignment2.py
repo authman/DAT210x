@@ -95,7 +95,7 @@ peekData()
 
 #
 # TODO: Create an SVC classifier. Leave C=1, but set gamma to 0.001
-# and set the kernel to linear. Then train the model on the testing
+# and set the kernel to linear. Then train the model on the training
 # data / labels:
 print "Training SVC Classifier..."
 #
