@@ -3,7 +3,7 @@ Programming with Python for Data Science Microsoft
 
 ## Current Offering
 
-If you haven't already, [join the course](https://www.edx.org/course/programming-python-data-science-microsoft-dat210x-0)! The current offering is from Aug22 - Sep30.
+If you haven't already, [join the course](https://www.edx.org/course/programming-python-data-science-microsoft-dat210x-0)! The current offering is from Oct10 - Dec31.
 
 
 ## Getting Started
