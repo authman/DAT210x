@@ -95,7 +95,7 @@ print "Fitting completed in: ", time.time() - s
 #
 # INFO: Display the OOB Score of your data
 score = model.oob_score_
-print "OOB Score: ", round((score*100), 3)
+print "OOB Score: ", round(score*100, 3)
 
 
 
@@ -106,7 +106,7 @@ s = time.time()
 # TODO: score your model on your test set
 #
 # .. your code here ..
-print "Score: ", round((score*100), 3)
+print "Score: ", round(score*100, 3)
 print "Scoring completed in: ", time.time() - s
 
 

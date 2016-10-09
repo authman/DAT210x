@@ -29,7 +29,7 @@ def load(path_test, path_train):
   return X_train, X_test, y_train, y_test
 
 
-def peekData():
+def peekData(X_train):
   # The 'targets' or labels are stored in y. The 'samples' or data is stored in X
   print "Peeking your data..."
   fig = plt.figure()
@@ -45,7 +45,7 @@ def peekData():
   plt.show()
 
 
-def drawPredictions():
+def drawPredictions(X_train, X_test, y_train, y_test):
   fig = plt.figure()
 
   # Make some guesses
@@ -90,7 +90,7 @@ from sklearn import svm
 # Get to know your data. It seems its already well organized in
 # [n_samples, n_features] form. Our dataset looks like (4389, 784).
 # Also your labels are already shaped as [n_samples].
-peekData()
+peekData(X_train)
 
 
 #
@@ -112,11 +112,12 @@ print "Score:\n", score
 
 
 # Visual Confirmation of accuracy
-drawPredictions()
+drawPredictions(X_train, X_test, y_train, y_test)
 
 
 #
 # TODO: Print out the TRUE value of the 1000th digit in the test set
+# By TRUE value, we mean, the actual provided label for that sample
 #
 # .. your code here ..
 print "1000th test label: ", true_1000th_test_value)

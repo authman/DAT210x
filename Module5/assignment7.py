@@ -60,12 +60,14 @@ def plotDecisionBoundary(model, X, y):
 # .. your code here ..
 
 
+
 # 
 # TODO: Copy out the status column into a slice, then drop it from the main
 # dataframe. You can also drop the sample column, since that doesn't provide
 # us with any machine learning power.
 #
 # .. your code here ..
+
 
 
 #
@@ -75,21 +77,25 @@ def plotDecisionBoundary(model, X, y):
 # .. your code here ..
 
 
-#
-# TODO: Experiment with the basic SKLearn preprocessing scalers. We know that
-# the features consist of different units mixed in together, so it's reasonable
-# to assume feature scaling is necessary. Print out a description of the
-# dataset, post transformation.
-#
-# .. your code here ..
-
 
 #
 # TODO: Do train_test_split. Use the same variable names as on the EdX platform in
 # the reading material, but set the random_state=7 for reproduceability, and keep
-# the test_size at 0.33 (33%).
+# the test_size at 0.5 (50%).
 #
 # .. your code here ..
+
+
+
+
+#
+# TODO: Experiment with the basic SKLearn preprocessing scalers. We know that
+# the features consist of different units mixed in together, so it might be
+# reasonable to assume feature scaling is necessary. Print out a description
+# of the dataset, post transformation.
+#
+# .. your code here ..
+
 
 
 
@@ -103,6 +109,7 @@ if Test_PCA:
   # You should reduce down to two dimensions.
   #
   # .. your code here ..
+
   
 
 else:
@@ -113,6 +120,7 @@ else:
   # You should reduce down to two dimensions.
   #
   # .. your code here ..
+  
 
 
 
@@ -124,6 +132,7 @@ else:
 # .. your code here ..
 
 
+
 # 
 # TODO: Implement and train KNeighborsClassifier on your projected 2D
 # training data here. You can use any K value from 1 - 15, so play around
@@ -133,6 +142,8 @@ else:
 # parameter affects the results.
 #
 # .. your code here ..
+
+
 
 #
 # INFO: Be sure to always keep the domain of the problem in mind! It's
@@ -152,6 +163,4 @@ else:
 # .. your code here ..
 
 
-plotDecisionBoundary(model, data_test, label_test)
-
-
+plotDecisionBoundary(knmodel, X_test, y_test)

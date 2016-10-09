@@ -20,7 +20,7 @@ FAST_DRAW = True
 
 
 
-def drawPlots(model, wintitle='Figure 1'):
+def drawPlots(model, X_train, X_test, y_train, y_test, wintitle='Figure 1'):
   # INFO: A convenience function for you
   # You can use this to break any higher-dimensional space down
   # And view cross sections of it.
@@ -91,7 +91,7 @@ def drawPlots(model, wintitle='Figure 1'):
   fig.set_tight_layout(True)
 
 
-def benchmark(model, wintitle='Figure 1'):
+def benchmark(model, X_train, X_test, y_train, y_test, wintitle='Figure 1'):
   print '\n\n' + wintitle + ' Results'
   s = time.time()
   for i in range(iterations):
@@ -175,11 +175,11 @@ def benchmark(model, wintitle='Figure 1'):
 
 
 
-benchmark(knn, 'KNeighbors')
-drawPlots(knn, 'KNeighbors')
+benchmark(knn, X_train, X_test, y_train, y_test, 'KNeighbors')
+drawPlots(knn, X_train, X_test, y_train, y_test, 'KNeighbors')
 
-benchmark(svc, 'SVC')
-drawPlots(svc, 'SVC')
+benchmark(svc, X_train, X_test, y_train, y_test, 'SVC')
+drawPlots(svc, X_train, X_test, y_train, y_test, 'SVC')
 
 plt.show()
 

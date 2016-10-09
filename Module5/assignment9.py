@@ -108,9 +108,9 @@ X.Private = X.Private.map({'Yes':1, 'No':0})
 
 
 #
-# INFO: The first relationship we're interested in is the amount
-# charged for room and board, as a function of the number of
-# accepted students. 
+# INFO: The first relationship we're interested in is the 
+# number of accepted students, as a function of the amount
+# charged for room and board.
 
 #
 # TODO: Using indexing, create two slices (series). One will just
@@ -118,11 +118,6 @@ X.Private = X.Private.map({'Yes':1, 'No':0})
 # students column. Then use train_test_split to cut your data up
 # into X_train, X_test, y_train, y_test, with a test_size of 30% and
 # a random_state of 7.
-#
-# Since the objective is to model the amount charged for room and
-# board as a function() of the number of accepted students, it should
-# be clear to you that your output will be the room and board amount,
-# and your input will be the accepted students amount.
 #
 # .. your code here ..
 
@@ -140,8 +135,8 @@ drawLine(model, X_test, y_test, "Accept(Room&Board)", score)
 
 # 
 # TODO: Duplicate the process above; this time, model the number of
-# enrolled students per college, as a function of the number of accepted
-# students
+# accepted students, as a function of the number of enrolled students
+# per college.
 #
 # .. your code here ..
 drawLine(model, X_test, y_test, "Accept(Enroll)", score)
@@ -150,8 +145,8 @@ drawLine(model, X_test, y_test, "Accept(Enroll)", score)
 
 # 
 # TODO: Duplicate the process above; this time, model the number of
-# failed undergraduate students per college, as a function of the number
-# of accepted students
+# accepted students, as as function of the numbr of failed undergraduate
+# students per college.
 #
 # .. your code here ..
 drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
@@ -163,8 +158,8 @@ drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
 # of another, you will attempt to do multivariate linear regression to
 # model one feature as a function of TWO other features.
 #
-# Model the number of accepted students, as a function of the amount
-# charged for room and board, AND the number of enrolled students. To do
+# Model the amount charged for room and board AND the number of enrolled
+# students, as a function of the number of accepted students. To do
 # this, instead of creating a regular slice for a single-feature input,
 # simply create a slice that contains both columns you wish to use as
 # inputs. Your training labels will remain a single slice.
