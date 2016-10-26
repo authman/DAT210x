@@ -1,3 +1,4 @@
+# %load assignment1.py
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
@@ -34,14 +35,18 @@ def do_PCA(armadillo):
   # drop one dimension (reduce it down to 2D) and project the
   # armadillo down to the 2D principal component feature space.
   #
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components = 2)
+    pca.fit(armadillo)
+    
+    armadillo_P = pca.transform(armadillo)
   # NOTE: Be sure to RETURN your projected armadillo! 
   # (This projection is actually stored in a NumPy NDArray and
   # not a Pandas dataframe, which is something Pandas does for
   # you automatically. =)
   #
   # .. your code here ..
-
-  return None
+    return armadillo_P
 
 
 def do_RandomizedPCA(armadillo):
@@ -51,21 +56,24 @@ def do_RandomizedPCA(armadillo):
   # dataframe. Finally, drop one dimension (reduce it down to 2D)
   # and project the armadillo down to the 2D principal component
   # feature space.
-  #
+    from sklearn.decomposition import RandomizedPCA
+    RandomizedPca = RandomizedPCA(n_components = 2)
+    RandomizedPca.fit(armadillo)
+    
+    armadillo_RP = RandomizedPca.transform(armadillo)
   # NOTE: Be sure to RETURN your projected armadillo! 
   # (This projection is actually stored in a NumPy NDArray and
   # not a Pandas dataframe, which is something Pandas does for
   # you automatically. =)
   #
   # .. your code here ..
-
-  return None
+    return armadillo_RP
 
 
 
 # Render the Original Armadillo
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(111, projection='3d') #remember that whenever you are plotting 3D you add projection to the add_subplot
 ax.set_title('Armadillo 3D')
 ax.set_xlabel('X')
 ax.set_ylabel('Y')
@@ -80,13 +88,11 @@ for i in range(5000): pca = do_PCA(armadillo)
 time_delta = datetime.datetime.now() - t1
 
 # Render the newly transformed PCA armadillo!
-if not pca is None:
-  fig = plt.figure()
-  ax = fig.add_subplot(111)
-  ax.set_title('PCA, build time: ' + str(time_delta))
-  ax.scatter(pca[:,0], pca[:,1], c='blue', marker='.', alpha=0.75)
-
-
+if not pca is None: #intuitively saying if pca = do_PCA(armadillo) is not None
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_title('PCA, build time: ' + str(time_delta))
+    ax.scatter(pca[:,0], pca[:,1], c='blue', marker='.', alpha=0.75)
 
 # Time the execution of rPCA 5000x
 t1 = datetime.datetime.now()
@@ -95,11 +101,10 @@ time_delta = datetime.datetime.now() - t1
 
 # Render the newly transformed RandomizedPCA armadillo!
 if not rpca is None:
-  fig = plt.figure()
-  ax = fig.add_subplot(111)
-  ax.set_title('RandomizedPCA, build time: ' + str(time_delta))
-  ax.scatter(rpca[:,0], rpca[:,1], c='red', marker='.', alpha=0.75)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_title('RandomizedPCA, build time: ' + str(time_delta))
+    ax.scatter(rpca[:,0], rpca[:,1], c='red', marker='.', alpha=0.75)
 
 
 plt.show()
-

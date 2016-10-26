@@ -31,13 +31,13 @@ labels = ['red' if i=='ckd' else 'green' for i in kidneyDataNull.classification]
 #
 # .. your code here ..
 
-selectMain = kidneyDataNull.loc[:, ['bgr', 'wc', 'rc']]
+#selectMain = kidneyDataNull.loc[:, ['bgr', 'wc', 'rc']]
 
 # TODO: Print out and check your dataframe's dtypes. You'll probably
 # want to call 'exit()' after you print it out so you can stop the
 # program's execution.
 #
-print(selectMain.dtypes)
+#print(selectMain.dtypes)
 
 
 # You can either take a look at the dataset webpage in the attribute info
@@ -49,16 +49,29 @@ print(selectMain.dtypes)
 #
 # .. your code here ..
 
-selectMain = selectMain.apply(lambda s: pd.to_numeric(s))
-print(selectMain.dtypes)
+#selectMain = selectMain.apply(lambda s: pd.to_numeric(s))
+#print(selectMain.dtypes)
 # TODO: PCA Operates based on variance. The variable with the greatest
 # variance will dominate. Go ahead and peek into your data using a
 # command that will check the variance of every feature in your dataset.
 
-print(selectMain.var())
+#print(selectMain.var())
 # Print out the results. Also print out the results of running .describe
 # on your dataset.
-#
+#The code here is when you drop the nominal features and run on only the numerical features
+#kidneyDataDrop = kidneyData.drop(['id', 'classification', 'rbc', 'pc', 'pcc', 'ba', 'htn', 'dm',\
+#                                  'cad', 'appet', 'pe', \
+#                                  'ane'], axis = 1).dropna(axis = 0, how = 'any').reset_index(drop = True)
+#print(kidneyDataDrop.head())
+
+#selectMain = kidneyDataDrop.apply(lambda j: pd.to_numeric(j))
+
+#Trying out when the nominal values are there and you encode the nominal features 
+kidneyDataNominal = kidneyData.drop(['id', 'classification'], axis = 1).dropna(axis = 0, how = 'any').reset_index(drop = True)
+selectMain = pd.get_dummies(kidneyDataNominal, columns= ['rbc', 'pc', 'pcc', 'ba', 'htn', 'dm',\
+                                                         'cad', 'appet', 'pe', 'ane'] )
+print(selectMain.dtypes)
+selectMain = selectMain.apply(lambda m: pd.to_numeric(m))
 # Hint: If you don't see all three variables: 'bgr','wc' and 'rc', then
 # you probably didn't complete the previous step properly.
 #
@@ -119,4 +132,3 @@ T.columns = ['component1', 'component2']
 
 T.plot.scatter(x='component1', y='component2', marker='o', c=labels, alpha=0.75, ax=ax)
 plt.show()
-
