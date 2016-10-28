@@ -1,3 +1,4 @@
+# %load assignment2.py
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -23,7 +24,10 @@ def showandtell(title=None):
 # Convert the date using pd.to_datetime, and the time using pd.to_timedelta
 #
 # .. your code here ..
-
+df = pd.read_csv('Datasets/CDR.csv')
+#print(df.head())
+df['CallDate'] = pd.to_datetime(df.CallDate)
+df['CallTime'] = pd.to_timedelta(df.CallTime)
 
 #
 # TODO: Get a distinct list of "In" phone numbers (users) and store the values in a
@@ -31,18 +35,18 @@ def showandtell(title=None):
 # Hint: https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.tolist.html
 #
 # .. your code here ..
-
+DistinctIn = df.In.unique().tolist()
 
 # 
 # TODO: Create a slice called user1 that filters to only include dataset records where the
 # "In" feature (user phone number) is equal to the first number on your unique list above
 #
 # .. your code here ..
-
+user1 = df[df.In == DistinctIn[0]]
 
 # INFO: Plot all the call locations
 user1.plot.scatter(x='TowerLon', y='TowerLat', c='gray', alpha=0.1, title='Call Locations')
-showandtell()  # Comment this line out when you're ready to proceed
+#showandtell()  # Comment this line out when you're ready to proceed
 
 
 #
@@ -62,24 +66,25 @@ showandtell()  # Comment this line out when you're ready to proceed
 #   3. They probably spend time commuting between work and home everyday
 
 
-
 #
 # TODO: Add more filters to the user1 slice you created. Add bitwise logic so that you're
 # only examining records that came in on weekends (sat/sun).
 #
 # .. your code here ..
-
+user1 = user1[(user1.DOW == 'Sat') | (user1.DOW == 'Sun')]
 
 #
 # TODO: Further filter it down for calls that are came in either before 6AM OR after 10pm (22:00:00).
 # You can use < and > to compare the string times, just make sure you code them as military time
 # strings, eg: "06:00:00", "22:00:00": https://en.wikipedia.org/wiki/24-hour_clock
+user1 = user1[(user1.CallTime < '06:00:00') | (user1.CallTime > '22:00:00')]
+
 #
 # You might also want to review the Data Manipulation section for this. Once you have your filtered
 # slice, print out its length:
 #
 # .. your code here ..
-
+len(user1)
 
 #
 # INFO: Visualize the dataframe with a scatter plot as a sanity check. Since you're familiar
@@ -95,7 +100,9 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 ax.scatter(user1.TowerLon,user1.TowerLat, c='g', marker='o', alpha=0.2)
 ax.set_title('Weekend Calls (<6am or >10p)')
-showandtell()  # TODO: Comment this line out when you're ready to proceed
+#showandtell()  # TODO: Comment this line out when you're ready to proceed
+
+user1 = user1.loc[:, ['TowerLon', 'TowerLat']]
 
 
 
@@ -114,9 +121,18 @@ showandtell()  # TODO: Comment this line out when you're ready to proceed
 # Hint: Make sure you graph the CORRECT coordinates. This is part of your domain expertise.
 #
 # .. your code here ..
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters = 2)
+kmeans.fit(user1)
+
+labels = kmeans.predict(user1)
+
+centroids = kmeans.cluster_centers_
+ax.scatter(centroids[:,0], centroids[:,1], marker='x', c='red', alpha=0.5, linewidths=3, s=169)
+print(centroids)
 
 
-showandtell()  # TODO: Comment this line out when you're ready to proceed
+#showandtell()  # TODO: Comment this line out when you're ready to proceed
 
 
 
@@ -125,4 +141,40 @@ showandtell()  # TODO: Comment this line out when you're ready to proceed
 # locations. You might want to use a for-loop, unless you enjoy typing.
 #
 # .. your code here ..
+#Looking at defining a function rather than using a for loop
+allData = []
+for i, v in enumerate(DistinctIn):
+    user = df[df.In == [DistinctIn[i]]]
+    user2 = user[(user.DOW =='Sat') | (user.DOW == 'Sun')]
+    user3 = user2[(user2.CallTime < '06:00:00') | (user2.CallTime > '22:00:00')]
+    
+    user3 = user3.loc[:, ['TowerLon', 'TowerLat']]
+    allData.append(user3)
+    
+    #kmeans = KMeans(n_clusters = 2)
+    #kmeans.fit(user3)
 
+    #labels = kmeans.predict(user3)
+
+#Define a fuction to do Kmeans on the list of tables for each individuals
+def do_Kmeans(data):
+    from sklearn.cluster import KMeans
+    kmeans = KMeans(n_clusters = 2)
+    kmeans.fit(data)
+    
+    labels = kmeans.predict(data)
+    
+    centroids = kmeans.cluster_centers_
+    return centroids
+#Apply do_Kmeans on each element in the list of tables for each individuals
+for i in range(len(allData)):
+    results = do_Kmeans(allData[i])
+    
+    fig2 = plt.figure()
+    ax2 = fig2.add_subplot(111)
+    ax2.set_title('Scatter plot for %s' %DistinctIn[i])
+    ax2.scatter(allData[i].TowerLat, allData[i].TowerLon, marker = '.', alpha = 0.3)
+    ax2.scatter(results[:,0], results[:,1], marker='x', c='red', alpha=0.5, linewidths=3, s=169)
+    print(results)
+
+plt.show()
