@@ -1,3 +1,4 @@
+# %load assignment5.py
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -53,28 +54,30 @@ def plotDecisionBoundary(model, X, y):
 #
 # .. your code here ..
 
-
+X = pd.read_csv("Datasets/wheat.data", index_col=0)
 
 #
 # TODO: Copy the 'wheat_type' series slice out of X, and into a series
 # called 'y'. Then drop the original 'wheat_type' column from the X
 #
 # .. your code here ..
-
-
+y = X.wheat_type.copy()
+X.drop('wheat_type', axis = 1, inplace = True)
+print(X.head())
+print(X.isnull().any())
 
 # TODO: Do a quick, "ordinal" conversion of 'y'. In actuality our
 # classification isn't ordinal, but just as an experiment...
 #
 # .. your code here ..
-
+y = y.astype('category').cat.codes
 
 
 #
 # TODO: Basic nan munging. Fill each row's nans with the mean of the feature
 #
 # .. your code here ..
-
+X = X.fillna(X.mean())
 
 
 #
@@ -84,7 +87,8 @@ def plotDecisionBoundary(model, X, y):
 # specify a random_state.
 #
 # .. your code here ..
-
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33, random_state = 1)
 
 
 # 
@@ -98,8 +102,9 @@ def plotDecisionBoundary(model, X, y):
 # apply your models to.
 #
 # .. your code here ..
-
-
+from sklearn.preprocessing import Normalizer
+norm = Normalizer()
+norm.fit(X_train)
 
 #
 # TODO: With your trained pre-processor, transform both your training AND
@@ -110,9 +115,8 @@ def plotDecisionBoundary(model, X, y):
 # feature-space as the original data used to train your models.
 #
 # .. your code here ..
-
-
-
+X_train = norm.transform(X_train)
+X_test = norm.transform(X_test)
 
 #
 # TODO: Just like your preprocessing transformation, create a PCA
@@ -124,8 +128,12 @@ def plotDecisionBoundary(model, X, y):
 # boundary in 2D would be if your KNN algo ran in 2D as well:
 #
 # .. your code here ..
+from sklearn.decomposition import PCA
+pca = PCA(n_components = 2)
+pca.fit(X_train)
 
-
+X_train = pca.transform(X_train)
+X_test = pca.transform(X_test)
 
 
 #
@@ -135,8 +143,9 @@ def plotDecisionBoundary(model, X, y):
 # your labels.
 #
 # .. your code here ..
-
-
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors = 9)
+knn.fit(X_train, y_train)
 
 
 # HINT: Ensure your KNeighbors classifier object from earlier is called 'knn'
@@ -152,8 +161,7 @@ plotDecisionBoundary(knn, X_train, y_train)
 # .score will take care of running your predictions for you automatically.
 #
 # .. your code here ..
-
-
+print(knn.score(X_test, y_test))
 
 #
 # BONUS: Instead of the ordinal conversion, try and get this assignment
@@ -162,4 +170,3 @@ plotDecisionBoundary(knn, X_train, y_train)
 
 
 plt.show()
-
