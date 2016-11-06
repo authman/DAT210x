@@ -101,9 +101,10 @@ n_audio_samples
 # with it yet:
 #
 # .. your code here ..
-from sklearn.linear_model import LinearRegression
-model = LinearRegression()
-
+#from sklearn.linear_model import LinearRegression
+#model = LinearRegression()
+from sklearn.tree import DecisionTreeRegressor
+model = DecisionTreeRegressor(max_depth = 5)
 
 
 #

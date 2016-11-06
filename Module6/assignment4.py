@@ -1,4 +1,3 @@
-# %load assignment1.py
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -12,7 +11,7 @@ import time
 # You can adjust them after completing the lab
 C = 1
 kernel = 'linear'
-iterations = 200000   # TODO: Change to 200000 once you get to Question#2
+iterations = 5000   # TODO: Change to 200000 once you get to Question#2
 
 #
 # INFO: You can set this to false if you want to
@@ -133,7 +132,7 @@ print(X[pd.isnull(X).any(axis=1)])
 # TODO: Go ahead and drop any row with a nan
 #
 # .. your code here ..
-X.dropna(axis=1, how='any', inplace= True)
+X.dropna(axis=0, how='any', inplace= True)
 
 
 # 
@@ -170,6 +169,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, rando
 # .. your code here ..
 from sklearn.svm import SVC
 svc = SVC(C = C, kernel = kernel)
+svc.fit(X_train, y_train)
 
 #
 # TODO: Create an KNeighbors classifier named knn
@@ -178,6 +178,15 @@ svc = SVC(C = C, kernel = kernel)
 # .. your code here ..
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors = 5)
+knn.fit(X_train, y_train)
+
+#TODO: Create a Decision tree Classifier named Tree
+#set max_depth to 9, and random_state=2
+#
+#... your code here
+from sklearn import tree
+Tree = tree.DecisionTreeClassifier(max_depth= 9, random_state= 2)
+Tree.fit(X_train, y_train)
 
 
 
@@ -189,6 +198,9 @@ drawPlots(knn, X_train, X_test, y_train, y_test, 'KNeighbors')
 benchmark(svc, X_train, X_test, y_train, y_test, 'SVC')
 drawPlots(svc, X_train, X_test, y_train, y_test, 'SVC')
 
+benchmark(Tree, X_train, X_test, y_train, y_test, 'DecisionTree')
+drawPlots(Tree, X_train, X_test, y_train, y_test, 'DecisionTree')
+
 plt.show()
 
 
@@ -196,4 +208,3 @@ plt.show()
 #
 # BONUS: After submitting your answers, toy around with
 # gamma, kernel, and C.
-
