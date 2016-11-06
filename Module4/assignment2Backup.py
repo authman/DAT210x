@@ -9,7 +9,7 @@ matplotlib.style.use('ggplot')
 
 
 # Do * NOT * alter this line, until instructed!
-scaleFeatures = True
+scaleFeatures = False
 
 
 # TODO: Load up the dataset and remove any and all

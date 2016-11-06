@@ -1,3 +1,4 @@
+# %load assignment4.py
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
@@ -13,6 +14,7 @@ matplotlib.style.use('ggplot')
 # It's located at 'Datasets/wheat.data'
 # 
 # .. your code here ..
+wheatParl = pd.read_csv('Datasets/wheat.data')
 
 
 
@@ -21,6 +23,7 @@ matplotlib.style.use('ggplot')
 # 
 # .. your code here ..
 
+wheatDrop = wheatParl.drop(['id', 'area', 'perimeter'], axis = 1)
 
 
 #
@@ -29,9 +32,13 @@ matplotlib.style.use('ggplot')
 # display parameter alpha to 0.4
 # 
 # .. your code here ..
-
-
+plt.figure()
+parallel_coordinates(wheatDrop, 'wheat_type') #remember the features needs to be normalized before you plot
+#And often 'parallel_coordinates' are not very sweet with more than 10 features
 
 plt.show()
 
 
+
+
+#?matplotlib.style.use() A very good way to ask for help on a particular part of documentation in ipython

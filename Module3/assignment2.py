@@ -1,3 +1,4 @@
+# %load assignment2.py
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
@@ -11,28 +12,29 @@ matplotlib.style.use('ggplot')
 # It's located at 'Datasets/wheat.data'
 # 
 # .. your code here ..
-
+wheatDF = pd.read_csv('Datasets/wheat.data')
 
 #
 # TODO: Create a 2d scatter plot that graphs the
 # area and perimeter features
 # 
 # .. your code here ..
-
+wheatS1 = wheatData.plot.scatter(x= 'area', y= 'perimeter')
 
 #
 # TODO: Create a 2d scatter plot that graphs the
 # groove and asymmetry features
 # 
 # .. your code here ..
-
+wheatS2 = wheatDF.plot.scatter(x = 'groove', y = 'asymmetry')
 
 #
 # TODO: Create a 2d scatter plot that graphs the
 # compactness and width features
 # 
 # .. your code here ..
-
+#used help('pandas.DataFrame.plot.scatter')
+wheatS3 = wheatDF.plot.scatter(x = 'compactness', y = 'width', marker = '^', c = 'g')
 
 
 # BONUS TODO:
@@ -43,5 +45,4 @@ matplotlib.style.use('ggplot')
 
 
 plt.show()
-
 

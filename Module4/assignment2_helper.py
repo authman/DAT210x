@@ -43,12 +43,12 @@ def scaleFeatures(df):
   # Feature scaling is the type of transformation that only changes the
   # scale and not number of features, so we'll use the original dataset
   # column names. However we'll keep in mind that the _units_ have been
-  # altered:
-  scaled = preprocessing.StandardScaler().fit_transform(df)
-  scaled = pd.DataFrame(scaled, columns=df.columns)
-  print "New Variances:\n", scaled.var()
-  print "New Describe:\n", scaled.describe()
-  return scaled
+    # altered:
+    scaled = preprocessing.StandardScaler().fit_transform(df)
+    scaled = pd.DataFrame(scaled, columns=df.columns)
+    print("New Variances:\n", scaled.var())
+    print("New Describe:\n", scaled.describe())
+    return scaled
 
 
 def drawVectors(transformed_features, components_, columns, plt, scaled):
@@ -73,7 +73,7 @@ def drawVectors(transformed_features, components_, columns, plt, scaled):
   # columns, not the principal components.
   important_features = { columns[i] : math.sqrt(xvector[i]**2 + yvector[i]**2) for i in range(num_columns) }
   important_features = sorted(zip(important_features.values(), important_features.keys()), reverse=True)
-  print "Features by importance:\n", important_features
+  print("Features by importance:\n", important_features)
 
   ax = plt.axes()
 

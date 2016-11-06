@@ -1,3 +1,4 @@
+# %load assignment8.py
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -15,9 +16,9 @@ def drawLine(model, X_test, y_test, title):
   ax.scatter(X_test, y_test, c='g', marker='o')
   ax.plot(X_test, model.predict(X_test), color='orange', linewidth=1, alpha=0.7)
 
-  print "Est 2014 " + title + " Life Expectancy: ", model.predict([[2014]])[0]
-  print "Est 2030 " + title + " Life Expectancy: ", model.predict([[2030]])[0]
-  print "Est 2045 " + title + " Life Expectancy: ", model.predict([[2045]])[0]
+  print("Est 2014 " + title + " Life Expectancy: ", model.predict([[2014]])[0])
+  print("Est 2030 " + title + " Life Expectancy: ", model.predict([[2030]])[0])
+  print("Est 2045 " + title + " Life Expectancy: ", model.predict([[2045]])[0])
 
   score = model.score(X_test, y_test)
   title += " R2: " + str(score)
@@ -34,7 +35,10 @@ def drawLine(model, X_test, y_test, title):
 # spread sheet application
 #
 # .. your code here ..
-
+import pandas as pd
+df = pd.read_csv("Datasets/life_expectancy.csv", delim_whitespace= True )
+print(df.describe())
+print(df.head())
 
 #
 # TODO: Create your linear regression model here and store it in a
@@ -42,7 +46,8 @@ def drawLine(model, X_test, y_test, title):
 # with it yet:
 #
 # .. your code here ..
-
+from sklearn import linear_model
+model = linear_model.LinearRegression()
 
 
 #
@@ -54,7 +59,12 @@ def drawLine(model, X_test, y_test, title):
 # of this document before proceeding.
 #
 # .. your code here ..
+X_train = df[df.Year < 1986]
+X_train1 = X_train[['Year']]
+print(X_train1.shape)
 
+y_train = X_train[['WhiteMale']]
+print(y_train.shape)
 
 
 #
@@ -66,13 +76,15 @@ def drawLine(model, X_test, y_test, title):
 # 2030 and 2045 extrapolation.
 #
 # .. your code here ..
-
+model.fit(X_train1, y_train)
+drawLine(model, X_train1, y_train, "WhiteMale")
 
 #
 # TODO: Print the actual 2014 WhiteMale life expectancy from your
 # loaded dataset
 #
 # .. your code here ..
+print(df.loc[df['Year'] == 2014, :])
 
 
 
@@ -83,6 +95,17 @@ def drawLine(model, X_test, y_test, title):
 # BlackFemale life expectancy
 #
 # .. your code here ..
+X_train = df[df.Year < 1986]
+X_train1 = X_train[['Year']]
+print(X_train1.shape)
+
+y_train = X_train[['BlackFemale']]
+print(y_train.shape)
+model.fit(X_train1, y_train)
+
+drawLine(model, X_train1, y_train, "BlackFemale")
+
+print(df.loc[df['Year'] == 2014, :])
 
 
 
@@ -93,6 +116,12 @@ def drawLine(model, X_test, y_test, title):
 # the course
 #
 # .. your code here ..
+print(df.corr())
+plt.imshow(df.corr(), cmap = plt.cm.Greens, interpolation= 'nearest')
+plt.colorbar()
+tick_marks = [i for i in range(len(df.columns))]
+plt.xticks(tick_marks, df.columns, rotation = 'vertical')
+plt.yticks(tick_marks, df.columns)
 
 plt.show()
 
@@ -131,4 +160,3 @@ plt.show()
 # SKLearn expects your data to be arranged as [n_samples, n_features].
 # Keep in mind, all of the above only relates to your "X" or input
 # data, and does not apply to your "y" or labels.
-
