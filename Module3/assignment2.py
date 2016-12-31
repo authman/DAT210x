@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 #

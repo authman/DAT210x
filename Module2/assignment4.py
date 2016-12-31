@@ -8,13 +8,15 @@ import pandas as pd
 # .. your code here ..
 
 
-# TODO: Rename the columns so that they match the
-# column definitions provided to you on the website
+# TODO: Rename the columns so that they are similar to the
+# column definitions provided to you on the website.
+# Be careful and don't accidentially use any names twice.
 #
 # .. your code here ..
 
 
-# TODO: Get rid of any row that has at least 4 NANs in it
+# TODO: Get rid of any row that has at least 4 NANs in it,
+# e.g. that do not contain player points statistics
 #
 # .. your code here ..
 
@@ -41,9 +43,13 @@ import pandas as pd
 
 # TODO: Check the data type of all columns, and ensure those
 # that should be numeric are numeric
+#
+# .. your code here ..
 
 
 
 # TODO: Your dataframe is now ready! Use the appropriate 
 # commands to answer the questions on the course lab page.
+#
+# .. your code here ..
 

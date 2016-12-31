@@ -48,8 +48,8 @@ def drawVectors(transformed_features, components_, columns, plt):
     
 
 def doPCA(data, dimensions=2):
-  from sklearn.decomposition import RandomizedPCA
-  model = RandomizedPCA(n_components=dimensions)
+  from sklearn.decomposition import PCA
+  model = PCA(n_components=dimensions, svd_solver='randomized', random_state=7)
   model.fit(data)
   return model
 
@@ -58,7 +58,10 @@ def doKMeans(data, clusters=0):
   #
   # TODO: Do the KMeans clustering here, passing in the # of clusters parameter
   # and fit it against your data. Then, return a tuple containing the cluster
-  # centers and the labels
+  # centers and the labels.
+  #
+  # Hint: Just like with doPCA above, you will have to create a variable called
+  # `model`, which is a SKLearn K-Means model for this to work.
   #
   # .. your code here ..
   return model.cluster_centers_, model.labels_

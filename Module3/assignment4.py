@@ -5,7 +5,8 @@ import matplotlib
 from pandas.tools.plotting import parallel_coordinates
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 #
@@ -17,7 +18,9 @@ matplotlib.style.use('ggplot')
 
 
 #
-# TODO: Drop the 'id', 'area', and 'perimeter' feature
+# TODO: Drop the 'id' feature, if you included it as a feature
+# (Hint: You shouldn't have)
+# Also get rid of the 'area' and 'perimeter' features
 # 
 # .. your code here ..
 

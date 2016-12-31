@@ -26,7 +26,6 @@ armadillo = pd.DataFrame({
 })
 
 
-
 def do_PCA(armadillo):
   #
   # TODO: Write code to import the libraries required for PCA.
@@ -57,6 +56,12 @@ def do_RandomizedPCA(armadillo):
   # not a Pandas dataframe, which is something Pandas does for
   # you automatically. =)
   #
+  # NOTE: SKLearn deprecated the RandomizedPCA method, but still
+  # has instructions on how to use randomized (truncated) method
+  # for the SVD solver. To find out how to use it, check out the
+  # full docs here:
+  # http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+  #
   # .. your code here ..
 
   return None
@@ -75,6 +80,8 @@ ax.scatter(armadillo.x, armadillo.y, armadillo.z, c='green', marker='.', alpha=0
 
 
 # Time the execution of PCA 5000x
+# PCA is ran 5000x in order to help decrease the potential of rogue
+# processes altering the speed of execution.
 t1 = datetime.datetime.now()
 for i in range(5000): pca = do_PCA(armadillo)
 time_delta = datetime.datetime.now() - t1

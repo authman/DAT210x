@@ -4,7 +4,8 @@ import matplotlib
 import assignment2_helper as helper
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 # Do * NOT * alter this line, until instructed!
@@ -14,6 +15,9 @@ scaleFeatures = False
 # TODO: Load up the dataset and remove any and all
 # Rows that have a nan. You should be a pro at this
 # by now ;-)
+#
+# QUESTION: Should the id column be included as a
+# feature?
 #
 # .. your code here ..
 
@@ -32,8 +36,8 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 
 
 
-# TODO: Print out and check your dataframe's dtypes. You'll probably
-# want to call 'exit()' after you print it out so you can stop the
+# TODO: Print out and check your dataframe's dtypes. You'll might
+# want to set a breakpoint after you print it out so you can stop the
 # program's execution.
 #
 # You can either take a look at the dataset webpage in the attribute info

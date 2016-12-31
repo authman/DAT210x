@@ -6,7 +6,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 #

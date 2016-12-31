@@ -10,11 +10,10 @@ matplotlib.style.use('ggplot') # Look Pretty
 # Your job is to find out where the users likely live at!
 
 
-
 def showandtell(title=None):
   if title != None: plt.savefig(title + ".png", bbox_inches='tight', dpi=300)
   plt.show()
-  exit()
+  # exit()
 
 def clusterInfo(model):
   print "Cluster Analysis Inertia: ", model.inertia_
@@ -44,8 +43,9 @@ def doKMeans(data, clusters=0):
   # no feature scaling is required. Print out the centroid locations and add them onto your scatter
   # plot. Use a distinguishable marker and color.
   #
-  # Hint: Make sure you fit ONLY the coordinates, and in the CORRECT order (lat first).
-  # This is part of your domain expertise.
+  # Hint: Make sure you fit ONLY the coordinates, and in the CORRECT order (lat first). This is part
+  # of your domain expertise. Also, *YOU* need to instantiate (and return) the variable named `model`
+  # here, which will be a SKLearn K-Means model for this to work.
   #
   # .. your code here ..
   return model
@@ -63,9 +63,10 @@ def doKMeans(data, clusters=0):
 
 
 #
-# TODO: Get a distinct list of "In" phone numbers (users) and store the values in a
-# regular python list.
-# Hint: https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.tolist.html
+# TODO: Create a unique list of of the phone-number values (users) stored in the
+# "In" column of the dataset, and save it to a variable called `unique_numbers`.
+# Manually check through unique_numbers to ensure the order the numbers appear is
+# the same order they appear (uniquely) in your dataset:
 #
 # .. your code here ..
 

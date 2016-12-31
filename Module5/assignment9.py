@@ -7,7 +7,6 @@ from mpl_toolkits.mplot3d import Axes3D
 matplotlib.style.use('ggplot') # Look Pretty
 
 
-
 def drawLine(model, X_test, y_test, title, R2):
   # This convenience method will take care of plotting your
   # test observations, comparing them to the regression line,

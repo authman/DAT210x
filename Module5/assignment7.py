@@ -63,8 +63,12 @@ def plotDecisionBoundary(model, X, y):
 
 # 
 # TODO: Copy out the status column into a slice, then drop it from the main
-# dataframe. You can also drop the sample column, since that doesn't provide
-# us with any machine learning power.
+# dataframe. Always verify you properly executed the drop by double checking
+# (printing out the resulting operating)! Many people forget to set the right
+# axis here.
+#
+# If you goofed up on loading the dataset and notice you have a `sample` column,
+# this would be a good place to drop that too if you haven't already.
 #
 # .. your code here ..
 
@@ -92,7 +96,9 @@ def plotDecisionBoundary(model, X, y):
 # TODO: Experiment with the basic SKLearn preprocessing scalers. We know that
 # the features consist of different units mixed in together, so it might be
 # reasonable to assume feature scaling is necessary. Print out a description
-# of the dataset, post transformation.
+# of the dataset, post transformation. Recall: when you do pre-processing,
+# which portion of the dataset is your model trained upon? Also which portion(s)
+# of your dataset actually get transformed?
 #
 # .. your code here ..
 
@@ -105,7 +111,7 @@ model = None
 if Test_PCA:
   print "Computing 2D Principle Components"
   #
-  # TODO: Implement PCA here. save your model into the variable 'model'.
+  # TODO: Implement PCA here. Save your model into the variable 'model'.
   # You should reduce down to two dimensions.
   #
   # .. your code here ..
@@ -115,7 +121,7 @@ if Test_PCA:
 else:
   print "Computing 2D Isomap Manifold"
   #
-  # TODO: Implement Isomap here. save your model into the variable 'model'
+  # TODO: Implement Isomap here. Save your model into the variable 'model'
   # Experiment with K values from 5-10.
   # You should reduce down to two dimensions.
   #

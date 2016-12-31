@@ -1,10 +1,12 @@
 #
-# TOOD: Import whatever needs to be imported to make this work
+# TODO: Import whatever needs to be imported to make this work
 #
 # .. your code here ..
 
 
-matplotlib.style.use('ggplot') # Look Pretty
+# Look Pretty
+# matplotlib.style.use('ggplot')
+#plt.style.use('ggplot')
 
 
 #
@@ -34,12 +36,13 @@ def doKMeans(df):
 
   #
   # TODO: Use K-Means to try and find seven cluster centers in this df.
+  # Be sure to name your kmeans model `model` so that the printing works.
   #
   # .. your code here ..
 
   #
   # INFO: Print and plot the centroids...
-  centroids = kmeans_model.cluster_centers_
+  centroids = model.cluster_centers_
   ax.scatter(centroids[:,0], centroids[:,1], marker='x', c='red', alpha=0.5, linewidths=3, s=169)
   print centroids
 

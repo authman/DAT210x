@@ -34,9 +34,9 @@ import numpy as np
 # types using the methods discussed in the chapter.
 #
 # Be careful! Some features can be represented as either categorical
-# or continuous (numerical). Think to yourself, does it generally
-# make more sense to have a numeric type or a series of categories
-# for these somewhat ambigious features?
+# or continuous (numerical). If you ever get confused, think to yourself
+# what makes more sense generally---to represent such features with a
+# continuous numeric type... or a series of categories?
 #
 # .. your code here ..
 

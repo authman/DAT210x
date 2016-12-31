@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 
 
 #
-# TODO: Drop the 'id' feature
+# TODO: Drop the 'id' feature, if you included it as a feature
+# (Hint: You shouldn't have)
 # 
 # .. your code here ..
 

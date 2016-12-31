@@ -62,9 +62,12 @@ print "High-Dimensionality Score: ", round((score*100), 3)
 
 
 #
-# TODO: Use the code on the courses SciKit-Learn page to output a .DOT file
+# TODO: Use the code on the course's SciKit-Learn page to output a .DOT file
 # Then render the .DOT to .PNGs. Ensure you have graphviz installed.
-# If not, `brew install graphviz. If you can't, use: http://webgraphviz.com/
+# If not, `brew install graphviz`. If you can't, use: http://webgraphviz.com/.
+# On Windows 10, graphviz installs via a msi installer that you can download from
+# the graphviz website. Also, a graph editor, gvedit.exe can be used to view the
+# tree directly from the exported tree.dot file without having to issue a call.
 #
 # .. your code here ..
 

@@ -106,19 +106,19 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
 # column out so that you have access to it as a "Series" rather than as a
 # "Dataframe". Use an appropriate indexer to take care of that. Also print
 # out the labels and compare to the face_labels.csv file to ensure you
-# loaded it correctly
+# loaded it correctly.
 #
 # .. your code here ..
 
 
 #
 # TODO: Do train_test_split. Use the same code as on the EdX platform in the
-# reading material, but set the random_state=7 for reproduceability, and play
-# around with the test_size from 0.10 - 0.20 (10-20%). Your labels are actually
-# passed in as a series (instead of as an NDArray) so that you can access
-# their underlying indices later on. This is necessary so you can find your samples
-# in the original dataframe, which you will use to plot your testing data as images
-# rather than as points:
+# reading material, but set the random_state=7 for reproduceability, and the
+# test_size from 0.15 (150%). Your labels are actually passed in as a series
+# (instead of as an NDArray) so that you can access their underlying indices
+# later on. This is necessary so you can find your samples in the original
+# dataframe, which you will use to plot your testing data as images rather
+# than as points:
 #
 # .. your code here ..
 
@@ -179,11 +179,6 @@ else:
 #
 # .. your code here ..
 
-# NOTE: K-NEIGHBORS DOES NOT CARE WHAT THE ANSWERS SHOULD BE! In fact, it
-# just tosses that information away. All KNeighbors cares about storing is
-# your training data (data_train) so that later on when you attempt to
-# predict or score samples, it can derive a class for them based on the
-# labeling of the sample's near neighbors.
 
 
 #
@@ -199,3 +194,9 @@ else:
 Plot2DBoundary(data_train, label_train, data_test, label_test)
 
 
+#
+# TODO:
+# After submitting your answers, expriment with using using PCA instead of
+# ISOMap. Are the results what you expected? Also try tinkering around with
+# the test/train split percentage from 10-20%. Notice anything?
+#

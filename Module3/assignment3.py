@@ -4,7 +4,8 @@ import matplotlib
 from mpl_toolkits.mplot3d import Axes3D
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 #
@@ -16,6 +17,7 @@ matplotlib.style.use('ggplot')
 
 
 fig = plt.figure()
+
 #
 # TODO: Create a new 3D subplot using fig. Then use the
 # subplot to graph a 3D scatter plot using the area,

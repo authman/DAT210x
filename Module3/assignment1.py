@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 # Look pretty...
-matplotlib.style.use('ggplot')
+# matplotlib.style.use('ggplot')
+plt.style.use('ggplot')
+
 
 #
 # TODO: Load up the Seeds Dataset into a Dataframe
@@ -34,5 +36,6 @@ matplotlib.style.use('ggplot')
 # .. your code here ..
 
 
+# Display the graphs:
 plt.show()
 

@@ -8,7 +8,7 @@ matplotlib.style.use('ggplot') # Look Pretty
 def showandtell(title=None):
   if title != None: plt.savefig(title + ".png", bbox_inches='tight', dpi=300)
   plt.show()
-  exit()
+  # exit()
 
 
 
@@ -35,7 +35,8 @@ def showandtell(title=None):
 
 # 
 # TODO: Create a slice called user1 that filters to only include dataset records where the
-# "In" feature (user phone number) is equal to the first number on your unique list above
+# "In" feature (user phone number) is equal to the first number on your unique list above;
+# that is, the very first number in the dataset
 #
 # .. your code here ..
 
