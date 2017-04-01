@@ -58,9 +58,12 @@ def do_RandomizedPCA(armadillo):
   #
   # NOTE: SKLearn deprecated the RandomizedPCA method, but still
   # has instructions on how to use randomized (truncated) method
-  # for the SVD solver. To find out how to use it, check out the
-  # full docs here:
+  # for the SVD solver. To find out how to use it, set `svd_solver`
+  # to 'randomized' and check out the full docs here
+  #
   # http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+  #
+  # Deprecated Method: http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.RandomizedPCA.html
   #
   # .. your code here ..
 

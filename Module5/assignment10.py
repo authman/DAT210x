@@ -45,10 +45,18 @@ Provided_Portion = 0.25
 
 
 #
-# TODO: Create a regular ol' Python List called 'zero'
-# Loop through the dataset and load up all 50 of the 0_jackson*.wav files
-# For each audio file, simply append the audio data (not the sample_rate,
-# just the data!) to your Python list 'zero':
+# TODO: Create a regular ol' Python List called `zero`
+#
+# .. your code here ..
+
+
+
+#
+# TODO: Loop through the dataset and load up all 50 of the 0_jackson*.wav
+# files using the wavfile.read() method: https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.io.wavfile.read.html
+# Be careful! .read() returns a tuple and you're only interested in the audio
+# data, and not sample_rate at this point. Inside your for loop, simply
+# append the loaded audio data into your Python list `zero`:
 #
 # .. your code here ..
 
@@ -66,7 +74,7 @@ Provided_Portion = 0.25
 # Since Pandas would have inserted NANs at any spot to make zero a 
 # perfectly rectangular [n_observed_samples, n_audio_samples] array,
 # do a dropna on the Y axis here. Then, convert one back into an
-# NDArray using .values
+# NDArray using yourarrayname.values
 #
 # .. your code here ..
 
@@ -139,7 +147,8 @@ wavfile.write('Original Test Clip.wav', sample_rate, test)
 # should have Provided_Portion * n_audio_samples audio sample features,
 # taken from your test audio file, currently stored in the variable
 # 'test'. In other words, grab the FIRST Provided_Portion *
-# n_audio_samples audio features from test and store it in X_test.
+# n_audio_samples audio features from test and store it in X_test. This
+# should be accomplished using indexing.
 #
 # .. your code here ..
 
