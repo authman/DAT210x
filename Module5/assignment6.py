@@ -6,12 +6,15 @@ import scipy.io
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
-# If you'd like to try this lab with PCA instead of Isomap,
-# as the dimensionality reduction technique:
+# If you'd like to try this lab with PCA instead of Isomap for dimensionality
+# reduction technique:
 Test_PCA = False
+
 
 matplotlib.style.use('ggplot') # Look Pretty
 
+# Startng from here, the following code is for your convenience only;
+# You can skip all the way down to the first 'TODO:' item.
 
 def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
   # The dots are training samples (img not drawn), and the pics are testing samples (images drawn)
@@ -93,9 +96,10 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
 
 #
 # TODO: Use the same code from Module4/assignment4.py to load up the
-# face_data.mat in a dataset called "df". Be sure to calculate the
-# num_pixels value, and to rotate the images to being right-side-up
+# face_data.mat file into a dataset called "df". Be sure to calculate
+# the num_pixels value, and to rotate the images to being right-side-up
 # instead of sideways. This was demonstrated in the M4/A4 code:
+# https://github.com/authman/DAT210x/blob/master/Module4/assignment4.py#L31-L41
 #
 # .. your code here ..
 
@@ -104,9 +108,10 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
 # TODO: Load up your face_labels dataset. It only has a single column, and
 # you're only interested in that single column. You will have to slice the 
 # column out so that you have access to it as a "Series" rather than as a
-# "Dataframe". Use an appropriate indexer to take care of that. Also print
-# out the labels and compare to the face_labels.csv file to ensure you
-# loaded it correctly.
+# "Dataframe". This was discussed in the the "Slicin'" lecture of the 
+# "Manipulating Data" reading on the course website. Use an appropriate
+# indexer to take care of that. Be sure to print out the labels and compare
+# what you see to the raw face_labels.csv so you know you loaded it correctly.
 #
 # .. your code here ..
 
@@ -114,11 +119,12 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
 #
 # TODO: Do train_test_split. Use the same code as on the EdX platform in the
 # reading material, but set the random_state=7 for reproduceability, and the
-# test_size from 0.15 (150%). Your labels are actually passed in as a series
+# test_size to 0.15 (150%). Your labels are actually passed in as a series
 # (instead of as an NDArray) so that you can access their underlying indices
 # later on. This is necessary so you can find your samples in the original
-# dataframe, which you will use to plot your testing data as images rather
-# than as points:
+# dataframe. The convenience methods we've written for you that handle drawing
+# expect this, so that they can plot your testing data as images rather than
+# as points:
 #
 # .. your code here ..
 
@@ -130,8 +136,8 @@ if Test_PCA:
   # (variance) is lost during the process, as I'm sure you can imagine. But
   # you have to drop the dimension down to two, otherwise you wouldn't be able
   # to visualize a 2D decision surface / boundary. In the wild, you'd probably
-  # leave in a lot more dimensions, but wouldn't need to plot the boundary;
-  # simply checking the results would suffice.
+  # leave in a lot more dimensions, which is better for higher accuracy, but
+  # worse for visualizing the decision boundary;
   #
   # Your model should only be trained (fit) against the training data (data_train)
   # Once you've done this, you need use the model to transform both data_train
@@ -152,9 +158,9 @@ else:
   # non-linear data that can be represented on a 2D manifold, you probably will
   # be left with a far superior dataset to use for classification. Plus by
   # having the images in 2D space, you can plot them as well as visualize a 2D
-  # decision surface / boundary. In the wild, you'd probably leave in a lot
-  # more dimensions, but wouldn't need to plot the boundary; simply checking
-  # the results would suffice.
+  # decision surface / boundary. In the wild, you'd probably leave in a lot more
+  # dimensions, which is better for higher accuracy, but worse for visualizing the
+  # decision boundary;
   #
   # Your model should only be trained (fit) against the training data (data_train)
   # Once you've done this, you need use the model to transform both data_train
@@ -173,9 +179,7 @@ else:
 #
 # TODO: Implement KNeighborsClassifier here. You can use any K value from 1
 # through 20, so play around with it and attempt to get good accuracy.
-# This is the heart of this assignment: Looking at the 2D points that
-# represent your images, along with a list of "answers" or correct class
-# labels that those 2d representations should be.
+# Fit the classifier against your training data and labels.
 #
 # .. your code here ..
 

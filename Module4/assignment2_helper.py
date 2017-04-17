@@ -15,8 +15,8 @@ from sklearn import preprocessing
 # this, SKLearn returns an NDArray from *transform() calls.
 
 def scaleFeatures(df):
-  # SKLearn has many different methods for doing transforming your
-  # features by scaling them (this is a type of pre-processing).
+  # SKLearn contains many methods for transforming your features by
+  # scaling them (this is a type of pre-processing):
   # RobustScaler, Normalizer, MinMaxScaler, MaxAbsScaler, StandardScaler...
   # http://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing
   #

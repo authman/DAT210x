@@ -68,7 +68,7 @@ def doKMeans(data, clusters=0):
 
 
 #
-# TODO: Load up the dataset. It has may or may not have nans in it. Make
+# TODO: Load up the dataset. It may or may not have nans in it. Make
 # sure you catch them and destroy them, by setting them to '0'. This is valid
 # for this dataset, since if the value is missing, you can assume no $ was spent
 # on it.
@@ -137,9 +137,9 @@ print df.describe()
 # The answer depends on what you're trying to accomplish. For instance, although
 # all the units are the same (generic money unit), the price per item in your
 # store isn't. There may be some cheap items and some expensive one. If your goal
-# is to find out what items people buy tend to buy together but you didn't 
-# unitize properly before running kMeans, the contribution of the lesser priced
-# item would be dwarfed by the more expensive item.
+# is to find out what items people tend to buy together but you didn't 
+# "unitize" properly before running kMeans, the contribution of the lesser priced
+# item would be dwarfed by the more expensive item. This is an issue of scale.
 #
 # For a great overview on a few of the normalization methods supported in SKLearn,
 # please check out: https://stackoverflow.com/questions/30918781/right-function-for-normalizing-input-of-sklearn-svm

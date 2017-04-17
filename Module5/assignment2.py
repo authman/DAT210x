@@ -51,7 +51,7 @@ showandtell()  # Comment this line out when you're ready to proceed
 # is where domain expertise comes into play. Your intuition tells you that people are likely
 # to behave differently on weekends:
 #
-# On Weekdays:
+# On Weekends:
 #   1. People probably don't go into work
 #   2. They probably sleep in late on Saturday
 #   3. They probably run a bunch of random errands, since they couldn't during the week
@@ -72,7 +72,7 @@ showandtell()  # Comment this line out when you're ready to proceed
 
 
 #
-# TODO: Further filter it down for calls that are came in either before 6AM OR after 10pm (22:00:00).
+# TODO: Further filter it down for calls that came in either before 6AM OR after 10pm (22:00:00).
 # You can use < and > to compare the string times, just make sure you code them as military time
 # strings, eg: "06:00:00", "22:00:00": https://en.wikipedia.org/wiki/24-hour_clock
 #
