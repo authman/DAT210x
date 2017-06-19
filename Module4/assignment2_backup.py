@@ -10,7 +10,7 @@ plt.style.use('ggplot')
 
 
 # Do * NOT * alter this line, until instructed!
-scaleFeatures = False
+scaleFeatures = True
 
 
 # TODO: Load up the dataset and remove any and all
@@ -22,6 +22,7 @@ scaleFeatures = False
 #
 df = pd.read_csv('Datasets/kidney_disease.csv', index_col=0)
 df = df.dropna(axis=0,how='any')
+
 # Create some color coded labels; the actual label feature
 # will be removed prior to executing PCA, since it's unsupervised.
 # You're only labeling by color so you can see the effects of PCA
@@ -30,11 +31,8 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 # TODO: Use an indexer to select only the following columns:
 #       ['bgr','wc','rc']
 #
-nominal_cols = ['classification']
-#nominal_cols = ['classification', 'rbc', 'pc', 'pcc', 'ba', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
-df = df.drop(nominal_cols, axis=1)
-df = pd.get_dummies(['rbc', 'pc', 'pcc', 'ba', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane'])
-        
+df = df[['bgr','wc','rc']]
+
 # TODO: Print out and check your dataframe's dtypes. You'll might
 # want to set a breakpoint after you print it out so you can stop the
 # program's execution.
@@ -48,7 +46,6 @@ df = pd.get_dummies(['rbc', 'pc', 'pcc', 'ba', 'htn', 'dm', 'cad', 'appet', 'pe'
 #
 
 df = df.apply(pd.to_numeric, errors='coerce')
-print df.dtypes
 
 # TODO: PCA Operates based on variance. The variable with the greatest
 # variance will dominate. Go ahead and peek into your data using a
