@@ -1,8 +1,4 @@
-#
-# TODO: Import whatever needs to be imported to make this work
-#
-# .. your code here ..
-
+import matplotlib as plt
 
 # Look Pretty
 # matplotlib.style.use('ggplot')
