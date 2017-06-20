@@ -5,7 +5,7 @@ import datetime
 
 from mpl_toolkits.mplot3d import Axes3D
 from plyfile import PlyData, PlyElement
-
+from sklearn.decomposition import PCA
 
 # Every 100 data samples, we save 1. If things run too
 # slow, try increasing this number. If things run too fast,
@@ -38,9 +38,12 @@ def do_PCA(armadillo):
   # not a Pandas dataframe, which is something Pandas does for
   # you automatically. =)
   #
-  # .. your code here ..
+  pca = PCA(n_components=2, svd_solver='full')
+  pca.fit(armadillo)
+  
+  armadillo_2d = pca.transform(armadillo)
 
-  return None
+  return armadillo_2d
 
 
 def do_RandomizedPCA(armadillo):
@@ -65,9 +68,12 @@ def do_RandomizedPCA(armadillo):
   #
   # Deprecated Method: http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.RandomizedPCA.html
   #
-  # .. your code here ..
+  pca = PCA(n_components=2, svd_solver='randomized')
+  pca.fit(armadillo)
+  
+  armadillo_2d = pca.transform(armadillo)
 
-  return None
+  return armadillo_2d
 
 
 
