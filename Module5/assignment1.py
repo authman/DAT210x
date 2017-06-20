@@ -1,20 +1,8 @@
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # Look Pretty
-# matplotlib.style.use('ggplot')
-#plt.style.use('ggplot')
-
-
-#
-# TODO: To procure the dataset, follow these steps:
-# 1. Navigate to: https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2
-# 2. In the 'Primary Type' column, click on the 'Menu' button next to the info button,
-#    and select 'Filter This Column'. It might take a second for the filter option to
-#    show up, since it has to load the entire list first.
-# 3. Scroll down to 'GAMBLING'
-# 4. Click the light blue 'Export' button next to the 'Filter' button, and select 'Download As CSV'
-
-
+plt.style.use('ggplot')
 
 def doKMeans(df):
   #
@@ -28,7 +16,6 @@ def doKMeans(df):
   # TODO: Filter df so that you're only looking at Longitude and Latitude,
   # since the remaining columns aren't really applicable for this purpose.
   #
-  # .. your code here ..
 
   #
   # TODO: Use K-Means to try and find seven cluster centers in this df.
@@ -47,8 +34,7 @@ def doKMeans(df):
 #
 # TODO: Load your dataset after importing Pandas
 #
-# .. your code here ..
-
+df = pd.read_csv('Datasets/Crimes.csv', index_col=0)
 
 #
 # TODO: Drop any ROWs with nans in them
