@@ -45,37 +45,21 @@ def plotDecisionBoundary(model, X, y):
   plt.axis('tight')
   plt.title('K = ' + str(p['n_neighbors']))
 
+X = pd.read_csv('Datasets/wheat.data', index_col=0)
+print X.head()
 
-# 
-# TODO: Load up the dataset into a variable called X. Check the .head and
-# compare it to the file you loaded in a text editor. Make sure you're
-# loading your data properly--don't fail on the 1st step!
-#
-# .. your code here ..
+y = X['wheat_type'].copy()
+X.drop(labels=['wheat_type'], inplace=True, axis=1)
 
+conversion_dict = {'kama':1, 'canadian':2, 'rosa':3}
+y = y.apply(conversion_dict.get)
 
+print y.head()
+print y.unique()
 
-#
-# TODO: Copy the 'wheat_type' series slice out of X, and into a series
-# called 'y'. Then drop the original 'wheat_type' column from the X
-#
-# .. your code here ..
+print X.mean()
 
-
-
-# TODO: Do a quick, "ordinal" conversion of 'y'. In actuality our
-# classification isn't ordinal, but just as an experiment...
-#
-# .. your code here ..
-
-
-
-#
-# TODO: Basic nan munging. Fill each row's nans with the mean of the feature
-#
-# .. your code here ..
-
-
+X.fillna(X.mean())
 
 #
 # TODO: Split X into training and testing data sets using train_test_split().
