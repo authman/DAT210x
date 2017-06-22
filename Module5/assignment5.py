@@ -13,7 +13,7 @@ def plotDecisionBoundary(model, X, y):
   padding = 0.6
   resolution = 0.0025
   colors = ['royalblue','forestgreen','ghostwhite']
-
+  
   # Calculate the boundaris
   x_min, x_max = X[:, 0].min(), X[:, 0].max()
   y_min, y_max = X[:, 1].min(), X[:, 1].max()
@@ -48,15 +48,16 @@ def plotDecisionBoundary(model, X, y):
 X = pd.read_csv('Datasets/wheat.data', index_col=0)
 print X.head()
 
-y = X['wheat_type'].copy()
+#print 'Max ===> ' + str(X[:,0].max())
+
+Y = X['wheat_type'].copy()
 X.drop(labels=['wheat_type'], inplace=True, axis=1)
 
 conversion_dict = {'kama':1, 'canadian':2, 'rosa':3}
-y = y.apply(conversion_dict.get)
+Y = Y.apply(conversion_dict.get)
 
-print y.head()
-print y.unique()
-
+print Y.head()
+print Y.unique()
 print X.mean()
 
 X = X.fillna(X.mean())
@@ -66,29 +67,23 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.33, random_state=1)
 
-normalizer_X = preprocessing.Normalizer().fit(x_train, y_train)
-normalized_T = normalizer_X.transform(X)
+normalizer = preprocessing.Normalizer().fit(X_train)#, Y_train)
+normalized_X_train = normalizer.transform(X_train)
+normalized_X_test = normalizer.transform(X_test)
 
-pca = PCA(n_components=2)
-pca_X = pca.fit(normalizer_X)
-pca_T = pca_X.transform(normalized_T)
+pca = PCA(n_components=2, svd_solver='full').fit(normalized_X_train)#, Y_train)
+pca_X_train = pca.transform(normalized_X_train)
+pca_X_test = pca.transform(normalized_X_test)
 
-KNeighbors = KNeighborsClassifier(n_neighbors=9).fit(pca_X)
-knn = KNeighbors.transform(pca_T)
-#
-# TODO: Create and train a KNeighborsClassifier. Start with K=9 neighbors.
-# NOTE: Be sure train your classifier against the pre-processed, PCA-
-# transformed training data above! You do not, of course, need to transform
-# your labels.
-#
-# .. your code here ..
+knn = KNeighborsClassifier(n_neighbors=9)
+knn.fit(pca_X_train, Y_train)
 
+print type(knn)
+print type(Y_train)
 
-plotDecisionBoundary(knn, x_train, y_train)
-
-
+plotDecisionBoundary(knn, pca_X_train, Y_train)
 #------------------------------------
 #
 # TODO: Display the accuracy score of your test data/labels, computed by
