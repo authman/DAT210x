@@ -59,59 +59,24 @@ print y.unique()
 
 print X.mean()
 
-X.fillna(X.mean())
+X = X.fillna(X.mean())
 
-#
-# TODO: Split X into training and testing data sets using train_test_split().
-# INFO: Use 0.33 test size, and use random_state=1. This is important
-# so that your answers are verifiable. In the real world, you wouldn't
-# specify a random_state.
-#
-# .. your code here ..
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import preprocessing
+from sklearn.decomposition import PCA
 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
 
+normalizer_X = preprocessing.Normalizer().fit(x_train, y_train)
+normalized_T = normalizer_X.transform(X)
 
-# 
-# TODO: Create an instance of SKLearn's Normalizer class and then train it
-# using its .fit() method against your *training* data.
-#
-# NOTE: The reason you only fit against your training data is because in a
-# real-world situation, you'll only have your training data to train with!
-# In this lab setting, you have both train+test data; but in the wild,
-# you'll only have your training data, and then unlabeled data you want to
-# apply your models to.
-#
-# .. your code here ..
+pca = PCA(n_components=2)
+pca_X = pca.fit(normalizer_X)
+pca_T = pca_X.transform(normalized_T)
 
-
-
-#
-# TODO: With your trained pre-processor, transform both your training AND
-# testing data.
-#
-# NOTE: Any testing data has to be transformed with your preprocessor
-# that has ben fit against your training data, so that it exist in the same
-# feature-space as the original data used to train your models.
-#
-# .. your code here ..
-
-
-
-
-#
-# TODO: Just like your preprocessing transformation, create a PCA
-# transformation as well. Fit it against your training data, and then
-# project your training and testing features into PCA space using the
-# PCA model's .transform() method.
-#
-# NOTE: This has to be done because the only way to visualize the decision
-# boundary in 2D would be if your KNN algo ran in 2D as well:
-#
-# .. your code here ..
-
-
-
-
+KNeighbors = KNeighborsClassifier(n_neighbors=9).fit(pca_X)
+knn = KNeighbors.transform(pca_T)
 #
 # TODO: Create and train a KNeighborsClassifier. Start with K=9 neighbors.
 # NOTE: Be sure train your classifier against the pre-processed, PCA-
@@ -121,10 +86,7 @@ X.fillna(X.mean())
 # .. your code here ..
 
 
-
-
-# HINT: Ensure your KNeighbors classifier object from earlier is called 'knn'
-plotDecisionBoundary(knn, X_train, y_train)
+plotDecisionBoundary(knn, x_train, y_train)
 
 
 #------------------------------------
