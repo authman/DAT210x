@@ -77,30 +77,16 @@ pca = PCA(n_components=2, svd_solver='full').fit(normalized_X_train)#, Y_train)
 pca_X_train = pca.transform(normalized_X_train)
 pca_X_test = pca.transform(normalized_X_test)
 
-knn = KNeighborsClassifier(n_neighbors=9)
+knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(pca_X_train, Y_train)
 
-print type(knn)
-print type(Y_train)
-
 plotDecisionBoundary(knn, pca_X_train, Y_train)
-#------------------------------------
-#
-# TODO: Display the accuracy score of your test data/labels, computed by
-# your KNeighbors model.
-#
-# NOTE: You do NOT have to run .predict before calling .score, since
-# .score will take care of running your predictions for you automatically.
-#
-# .. your code here ..
 
-
+print knn.score(pca_X_test, Y_test)
 
 #
 # BONUS: Instead of the ordinal conversion, try and get this assignment
 # working with a proper Pandas get_dummies for feature encoding. HINT:
 # You might have to update some of the plotDecisionBoundary code.
 
-
 plt.show()
-
