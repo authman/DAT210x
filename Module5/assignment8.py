@@ -23,81 +23,39 @@ def drawLine(model, X_test, y_test, title):
   title += " R2: " + str(score)
   ax.set_title(title)
 
-
   plt.show()
 
+headers = ['Year', 'WhiteMale', 'WhiteFemale', 'BlackMale', 'BlackFemale']
+X = pd.read_csv('Datasets/life_expectancy.csv', delim_whitespace=True, skiprows=1, names=headers)
+print len(X)
 
-#
-# TODO: Load up the data here into a variable called 'X'.
-# As usual, do a .describe and a print of your dataset and
-# compare it to the dataset loaded in a text file or in a
-# spread sheet application
-#
-# .. your code here ..
+def interpolate(rase_and_gender):
+  from sklearn import linear_model
+  model = linear_model.LinearRegression()
 
+  X_train = X[X['Year'] < 1986][['Year']]
+  Y_train = X[X['Year'] < 1986][rase_and_gender]
 
-#
-# TODO: Create your linear regression model here and store it in a
-# variable called 'model'. Don't actually train or do anything else
-# with it yet:
-#
-# .. your code here ..
+  X_test = X[X['Year'] >= 1986][['Year']]
+  Y_test = X[X['Year'] >= 1986][rase_and_gender]
 
+  model.fit(X_train, Y_train)
 
+  drawLine(model, X_test, Y_test, rase_and_gender)
 
-#
-# TODO: Slice out your data manually (e.g. don't use train_test_split,
-# but actually do the Indexing yourself. Set X_train to be year values
-# LESS than 1986, and y_train to be corresponding WhiteMale age values.
-#
-# INFO You might also want to read the note about slicing on the bottom
-# of this document before proceeding.
-#
-# .. your code here ..
+  print X[X['Year'] == 2014]
 
+interpolate('WhiteMale')
+#interpolate('BlackFemale')
 
-
-#
-# TODO: Train your model then pass it into drawLine with your training
-# set and labels. You can title it "WhiteMale". drawLine will output
-# to the console a 2014 extrapolation / approximation for what it
-# believes the WhiteMale's life expectancy in the U.S. will be...
-# given the pre-1986 data you trained it with. It'll also produce a
-# 2030 and 2045 extrapolation.
-#
-# .. your code here ..
-
-
-#
-# TODO: Print the actual 2014 WhiteMale life expectancy from your
-# loaded dataset
-#
-# .. your code here ..
-
-
-
-# 
-# TODO: Repeat the process, but instead of for WhiteMale, this time
-# select BlackFemale. Create a slice for BlackFemales, fit your
-# model, and then call drawLine. Lastly, print out the actual 2014
-# BlackFemale life expectancy
-#
-# .. your code here ..
-
-
-
-#
-# TODO: Lastly, print out a correlation matrix for your entire
-# dataset, and display a visualization of the correlation
-# matrix, just as we described in the visualization section of
-# the course
-#
-# .. your code here ..
+print X.corr()
+plt.imshow(X.corr(), cmap=plt.cm.Blues, interpolation='nearest')
+plt.colorbar()
+tick_marks = [i for i in range(len(X.columns))]
+plt.xticks(tick_marks, X.columns, rotation='vertical')
+plt.yticks(tick_marks, X.columns)
 
 plt.show()
-
-
-
 
 #
 # INFO + HINT On Fitting, Scoring, and Predicting:

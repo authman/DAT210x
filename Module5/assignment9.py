@@ -62,94 +62,35 @@ def drawPlane(model, X_test, y_test, title, R2):
   
   plt.show()
   
+X = pd.read_csv('Datasets/College.csv', index_col=0)
+#print X.head()
 
-
-#
-# INFO: Let's get started!
-
-
-#
-# TODO: First, as is your habit, inspect your dataset in a text
-# editor, or spread sheet application. The first thing you should
-# notice is that the first column is both unique (the name of each)
-# college, as well as unlabeled. This is a HINT that it must be the
-# index column. If you do not indicate to Pandas that you already
-# have an index column, it'll create one for you, which would be
-# undesirable since you already have one.
-#
-# Review the .read_csv() documentation and discern how to load up
-# a dataframe while indicating which existing column is to be taken
-# as an index. Then, load up the College dataset into a variable
-# called X:
-#
-# .. your code here ..
-
-
-#
-# INFO: This line isn't necessary for your purposes; but we'd just
-# like to show you an additional way to encode features directly.
-# The .map() method is like .apply(), but instead of taking in a
-# lambda / function, you simply provide a mapping of keys:values.
-# If you decide to embark on the "Data Scientist Challenge", this
-# line of code will save you the trouble of converting it through
-# other means:
 X.Private = X.Private.map({'Yes':1, 'No':0})
 
+def score_relationship(data_column, draw='line'):
+  from sklearn import linear_model
+  model = linear_model.LinearRegression()
 
-#
-# TODO: Create your linear regression model here and store it in a
-# variable called 'model'. Don't actually train or do anything else
-# with it yet:
-#
-# .. your code here ..
+  data = X[data_column]
+  labels = X['Accept']
 
+  from sklearn.model_selection import train_test_split
+  X_train, X_test, Y_train, Y_test = train_test_split(data, labels, test_size=0.3, random_state=7)
 
+  model.fit(X_train, Y_train)
 
+  score = model.score(X_test, Y_test)
 
-#
-# INFO: The first relationship we're interested in is the 
-# number of accepted students, as a function of the amount
-# charged for room and board.
+  # INFO: We'll take it from here, buddy:
+  if (draw=='line'):
+    drawLine(model, X_test, Y_test, "Accept(" + str(data_column) + ")", score)
+  else:
+    drawPlane(model, X_test, Y_test, "Accept(" + str(data_column) + ")", score)
 
-#
-# TODO: Using indexing, create two slices (series). One will just
-# store the room and board column, the other will store the accepted
-# students column. Then use train_test_split to cut your data up
-# into X_train, X_test, y_train, y_test, with a test_size of 30% and
-# a random_state of 7.
-#
-# .. your code here ..
-
-#
-# TODO: Fit and score your model appropriately. Store the score in the
-# score variable.
-#
-# .. your code here ..
-
-# INFO: We'll take it from here, buddy:
-drawLine(model, X_test, y_test, "Accept(Room&Board)", score)
-
-
-
-
-# 
-# TODO: Duplicate the process above; this time, model the number of
-# accepted students, as a function of the number of enrolled students
-# per college.
-#
-# .. your code here ..
-drawLine(model, X_test, y_test, "Accept(Enroll)", score)
-
-
-
-# 
-# TODO: Duplicate the process above; this time, model the number of
-# accepted students, as as function of the numbr of failed undergraduate
-# students per college.
-#
-# .. your code here ..
-drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
-
+score_relationship(['Room.Board'])
+score_relationship(['Enroll'])
+score_relationship(['F.Undergrad'])
+score_relationship(['Room.Board', 'Enroll'], 'plane')
 
 #
 # TODO: Duplicate the process above (almost). This time is going to be
@@ -164,7 +105,6 @@ drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
 # inputs. Your training labels will remain a single slice.
 #
 # .. your code here ..
-drawPlane(model, X_test, y_test, "Accept(Room&Board,Enroll)", score)
 
 
 #
