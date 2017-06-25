@@ -1,14 +1,13 @@
 import pandas as pd
 import numpy as np
 
-
 #
 # TODO:
 # Load up the dataset, setting correct header labels.
 #
-# .. your code here ..
-
-
+labels = ['education', 'age', 'capital-gain', 'race', 'capital-loss', 'hours-per-week', 'sex', 'classification']
+df = pd.read_csv('Datasets/census.data', names=labels, na_values="?")
+print df.head(100)
 
 #
 # TODO:
@@ -24,7 +23,7 @@ import numpy as np
 # na_values when loading the dataframe.
 #
 # .. your code here ..
-
+print df.dtypes
 
 
 #

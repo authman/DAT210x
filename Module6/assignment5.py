@@ -1,74 +1,56 @@
 import pandas as pd
+import numpy as np
 
+from sklearn.model_selection import train_test_split
+from sklearn import tree
 
 #https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.names
 
+headers = ['classification', 'cap-shape', 'cap-surface', 'cap-color', 'bruises', 'odor'
+            'gill-attachment', 'gill-spacing', 'gill-size', 'gill-color', 'stalk-shape', 
+            'stalk-root', 'stalk-surface-above-ring', 'stalk-surface-below-ring', 
+            'stalk-color-above-ring', 'stalk-color-below-ring', 'veil-type', 'veil-color',
+            'ring-number', 'ring-type', 'spore-print-color', 'population', 'habitat']
+X = pd.read_csv('Datasets/agaricus-lepiota.data', names=headers, index_col=False)
 
-# 
-# TODO: Load up the mushroom dataset into dataframe 'X'
-# Verify you did it properly.
-# Indices shouldn't be doubled.
-# Header information is on the dataset's website at the UCI ML Repo
-# Check NA Encoding
-#
-# .. your code here ..
+print len(X)
 
+X.replace('?', np.NaN, inplace=True)
 # INFO: An easy way to show which rows have nans in them
 #print X[pd.isnull(X).any(axis=1)]
+X.dropna(inplace=True, axis=0)
+#print X[pd.isnull(X).any(axis=1)]
 
+print len(X)
 
-# 
-# TODO: Go ahead and drop any row with a nan
-#
-# .. your code here ..
-print X.shape
+Y = X['classification']
+X.drop(labels='classification', axis=1, inplace=True)
+Y = Y.map({'p':0, 'e':1})
 
+#print X.head()
+#print Y.head()
 
-#
-# TODO: Copy the labels out of the dset into variable 'y' then Remove
-# them from X. Encode the labels, using the .map() trick we showed
-# you in Module 5 -- canadian:0, kama:1, and rosa:2
-#
-# .. your code here ..
+X = pd.get_dummies(X)
 
+#print X.head()
+#print list(X.columns.values)
 
-#
-# TODO: Encode the entire dataset using dummies
-#
-# .. your code here ..
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=7)
 
+dtree = tree.DecisionTreeClassifier()
+dtree.fit(X_train, Y_train)
 
-# 
-# TODO: Split your data into test / train sets
-# Your test size can be 30% with random_state 7
-# Use variable names: X_train, X_test, y_train, y_test
-#
-# .. your code here ..
+score = dtree.score(X_test, Y_test)
 
-
-
-#
-# TODO: Create an DT classifier. No need to set any parameters
-#
-# .. your code here ..
-
- 
-#
-# TODO: train the classifier on the training data / labels:
-# TODO: score the classifier on the testing data / labels:
-#
-# .. your code here ..
 print "High-Dimensionality Score: ", round((score*100), 3)
 
+fi_ind=0
+for fi in dtree.feature_importances_:
+  #print str(fi_ind) + ' ===> ' + str(fi)
+  fi_ind+=1
 
-#
-# TODO: Use the code on the course's SciKit-Learn page to output a .DOT file
-# Then render the .DOT to .PNGs. Ensure you have graphviz installed.
-# If not, `brew install graphviz`. If you can't, use: http://webgraphviz.com/.
-# On Windows 10, graphviz installs via a msi installer that you can download from
-# the graphviz website. Also, a graph editor, gvedit.exe can be used to view the
-# tree directly from the exported tree.dot file without having to issue a call.
-#
-# .. your code here ..
+#print dtree.classes_
+tree.export_graphviz(dtree.tree_, out_file='tree.dot', feature_names=X.columns)
 
-
+from subprocess import call
+call(['dot', '-T', 'png', 'tree.dot', '-o', 'tree.png'])

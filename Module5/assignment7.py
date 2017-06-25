@@ -2,6 +2,7 @@
 # as the dimensionality reduction technique:
 Test_PCA = True
 
+import numpy as np
 
 def plotDecisionBoundary(model, X, y):
   print "Plotting..."
@@ -31,7 +32,6 @@ def plotDecisionBoundary(model, X, y):
 
   # Create a 2D Grid Matrix. The values stored in the matrix
   # are the predictions of the class at at said location
-  import numpy as np
   xx, yy = np.meshgrid(np.arange(x_min, x_max, resolution),
                        np.arange(y_min, y_max, resolution))
 
@@ -52,92 +52,61 @@ def plotDecisionBoundary(model, X, y):
   plt.title('K = ' + str(p['n_neighbors']))
   plt.show()
 
+import pandas as pd
 
-# 
-# TODO: Load in the dataset, identify nans, and set proper headers.
-# Be sure to verify the rows line up by looking at the file in a text editor.
-#
-# .. your code here ..
+names = ['thickness', 'size', 'shape', 'adhesion', 'epithelial', 'nuclei', 'chromatin', 'nucleoli', 'mitoses', 'status']
+df = pd.read_csv('Datasets/breast-cancer-wisconsin.data', index_col=0, names=names)
 
+labels = df['status']
+df.drop(labels=['status'], inplace=True, axis = 1)
 
+df.replace('?', np.NaN, inplace=True)
+df['nuclei'] = pd.to_numeric(df['nuclei'], errors='coerce')
 
-# 
-# TODO: Copy out the status column into a slice, then drop it from the main
-# dataframe. Always verify you properly executed the drop by double checking
-# (printing out the resulting operating)! Many people forget to set the right
-# axis here.
-#
-# If you goofed up on loading the dataset and notice you have a `sample` column,
-# this would be a good place to drop that too if you haven't already.
-#
-# .. your code here ..
+df = df.fillna(df.mean(axis=0))
 
+from sklearn.model_selection import train_test_split
 
+data_train, data_test, label_train, label_test = train_test_split(df, labels, test_size=0.5, random_state=7)
 
-#
-# TODO: With the labels safely extracted from the dataset, replace any nan values
-# with the mean feature / column value
-#
-# .. your code here ..
+from sklearn import preprocessing
 
+preprocessor = preprocessing.Normalizer().fit(data_train)
+# MaxAbsScaler(), MinMaxScaler(), StandardScaler(), Normalizer(), RobustScaler()
 
+data_train = preprocessor.transform(data_train)
+data_test = preprocessor.transform(data_test)
 
-#
-# TODO: Do train_test_split. Use the same variable names as on the EdX platform in
-# the reading material, but set the random_state=7 for reproduceability, and keep
-# the test_size at 0.5 (50%).
-#
-# .. your code here ..
-
-
-
-
-#
-# TODO: Experiment with the basic SKLearn preprocessing scalers. We know that
-# the features consist of different units mixed in together, so it might be
-# reasonable to assume feature scaling is necessary. Print out a description
-# of the dataset, post transformation. Recall: when you do pre-processing,
-# which portion of the dataset is your model trained upon? Also which portion(s)
-# of your dataset actually get transformed?
-#
-# .. your code here ..
-
-
-
+#print data_train.shape
 
 #
 # PCA and Isomap are your new best friends
 model = None
 if Test_PCA:
   print "Computing 2D Principle Components"
-  #
-  # TODO: Implement PCA here. Save your model into the variable 'model'.
-  # You should reduce down to two dimensions.
-  #
-  # .. your code here ..
-
   
+  from sklearn.decomposition import PCA
+  model = PCA(n_components=2)
 
 else:
   print "Computing 2D Isomap Manifold"
-  #
-  # TODO: Implement Isomap here. Save your model into the variable 'model'
-  # Experiment with K values from 5-10.
-  # You should reduce down to two dimensions.
-  #
-  # .. your code here ..
   
+  from sklearn import manifold
+  model = manifold.Isomap(n_neighbors=5, n_components=2)
 
 
+model = model.fit(data_train)
+data_train = model.transform(data_train)
+data_test = model.transform(data_test)  
 
-#
-# TODO: Train your model against data_train, then transform both
-# data_train and data_test using your model. You can save the results right
-# back into the variables themselves.
-#
-# .. your code here ..
+from sklearn.neighbors import KNeighborsClassifier
 
-
+for k in range(1,16):
+  knmodel = KNeighborsClassifier(n_neighbors=k, weights='distance')
+  knmodel.fit(data_train, label_train)
+  
+  score = knmodel.score(data_test, label_test)
+  print score
 
 # 
 # TODO: Implement and train KNeighborsClassifier on your projected 2D
@@ -149,8 +118,6 @@ else:
 #
 # .. your code here ..
 
-
-
 #
 # INFO: Be sure to always keep the domain of the problem in mind! It's
 # WAY more important to errantly classify a benign tumor as malignant,
@@ -161,12 +128,4 @@ else:
 # example, randomly reducing the ratio of benign samples compared to malignant
 # samples from the training set.
 
-
-
-#
-# TODO: Calculate + Print the accuracy of the testing set
-#
-# .. your code here ..
-
-
-plotDecisionBoundary(knmodel, X_test, y_test)
+plotDecisionBoundary(knmodel, data_test, label_test)

@@ -6,11 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 
-#
-# TODO: Parameters to play around with
 PLOT_TYPE_TEXT = False    # If you'd like to see indices
 PLOT_VECTORS = True       # If you'd like to see your original features in P.C.-Space
-
 
 matplotlib.style.use('ggplot') # Look Pretty
 c = ['red', 'green', 'blue', 'orange', 'yellow', 'brown']
@@ -55,42 +52,21 @@ def doPCA(data, dimensions=2):
 
 
 def doKMeans(data, clusters=0):
-  #
-  # TODO: Do the KMeans clustering here, passing in the # of clusters parameter
-  # and fit it against your data. Then, return a tuple containing the cluster
-  # centers and the labels.
-  #
-  # Hint: Just like with doPCA above, you will have to create a variable called
-  # `model`, which is a SKLearn K-Means model for this to work.
-  #
-  # .. your code here ..
+  from sklearn.cluster import KMeans
+  model = KMeans(clusters)
+  model.fit(data)
   return model.cluster_centers_, model.labels_
 
+df = pd.read_csv('Datasets/Wholesale customers data.csv')
+df = df.fillna(0)
 
-#
-# TODO: Load up the dataset. It may or may not have nans in it. Make
-# sure you catch them and destroy them, by setting them to '0'. This is valid
-# for this dataset, since if the value is missing, you can assume no $ was spent
-# on it.
-#
-# .. your code here ..
+del df['Channel']
+del df['Region']
 
-#
-# TODO: As instructed, get rid of the 'Channel' and 'Region' columns, since
-# you'll be investigating as if this were a single location wholesaler, rather
-# than a national / international one. Leaving these fields in here would cause
-# KMeans to examine and give weight to them.
-#
-# .. your code here ..
+print df.head()
+print df.describe()
 
-
-#
-# TODO: Before unitizing / standardizing / normalizing your data in preparation for
-# K-Means, it's a good idea to get a quick peek at it. You can do this using the
-# .describe() method, or even by using the built-in pandas df.plot.hist()
-#
-# .. your code here ..
-
+#df.plot.hist()
 
 #
 # INFO: Having checked out your data, you may have noticed there's a pretty big gap
@@ -179,7 +155,7 @@ print df.describe()
 #T = preprocessing.MinMaxScaler().fit_transform(df)
 #T = preprocessing.MaxAbsScaler().fit_transform(df)
 #T = preprocessing.Normalizer().fit_transform(df)
-T = df # No Change
+#T = df # No Change
 
 
 #
@@ -201,7 +177,7 @@ centroids, labels = doKMeans(T, n_clusters)
 # TODO: Print out your centroids. They're currently in feature-space, which
 # is good. Print them out before you transform them into PCA space for viewing
 #
-# .. your code here ..
+print centroids
 
 
 # Do PCA *after* to visualize the results. Project the centroids as well as 

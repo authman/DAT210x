@@ -6,15 +6,14 @@ import scipy.io
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
+from sklearn.model_selection import train_test_split
+
 # If you'd like to try this lab with PCA instead of Isomap for dimensionality
 # reduction technique:
 Test_PCA = False
 
 
 matplotlib.style.use('ggplot') # Look Pretty
-
-# Startng from here, the following code is for your convenience only;
-# You can skip all the way down to the first 'TODO:' item.
 
 def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
   # The dots are training samples (img not drawn), and the pics are testing samples (images drawn)
@@ -93,105 +92,42 @@ def Plot2DBoundary(DTrain, LTrain, DTest, LTest):
   plt.show()  
 
 
+mat = scipy.io.loadmat('../Module4/Datasets/face_data.mat')
+df = pd.DataFrame(mat['images']).T
+num_images, num_pixels = df.shape
+num_pixels = int(math.sqrt(num_pixels))
 
-#
-# TODO: Use the same code from Module4/assignment4.py to load up the
-# face_data.mat file into a dataset called "df". Be sure to calculate
-# the num_pixels value, and to rotate the images to being right-side-up
-# instead of sideways. This was demonstrated in the M4/A4 code:
-# https://github.com/authman/DAT210x/blob/master/Module4/assignment4.py#L31-L41
-#
-# .. your code here ..
+# Rotate the pictures, so we don't have to crane our necks:
+for i in range(num_images):
+  df.loc[i,:] = df.loc[i,:].reshape(num_pixels, num_pixels).T.reshape(-1)
 
+labels = pd.read_csv('Datasets/face_labels.csv', names=['labels']).iloc[:, 0]
+print labels.head()
 
-#
-# TODO: Load up your face_labels dataset. It only has a single column, and
-# you're only interested in that single column. You will have to slice the 
-# column out so that you have access to it as a "Series" rather than as a
-# "Dataframe". This was discussed in the the "Slicin'" lecture of the 
-# "Manipulating Data" reading on the course website. Use an appropriate
-# indexer to take care of that. Be sure to print out the labels and compare
-# what you see to the raw face_labels.csv so you know you loaded it correctly.
-#
-# .. your code here ..
-
-
-#
-# TODO: Do train_test_split. Use the same code as on the EdX platform in the
-# reading material, but set the random_state=7 for reproduceability, and the
-# test_size to 0.15 (150%). Your labels are actually passed in as a series
-# (instead of as an NDArray) so that you can access their underlying indices
-# later on. This is necessary so you can find your samples in the original
-# dataframe. The convenience methods we've written for you that handle drawing
-# expect this, so that they can plot your testing data as images rather than
-# as points:
-#
-# .. your code here ..
-
-
+data_train, data_test, label_train, label_test = train_test_split(df, labels, test_size=0.15, random_state=7)
 
 if Test_PCA:
-  # INFO: PCA is used *before* KNeighbors to simplify your high dimensionality
-  # image samples down to just 2 principal components! A lot of information
-  # (variance) is lost during the process, as I'm sure you can imagine. But
-  # you have to drop the dimension down to two, otherwise you wouldn't be able
-  # to visualize a 2D decision surface / boundary. In the wild, you'd probably
-  # leave in a lot more dimensions, which is better for higher accuracy, but
-  # worse for visualizing the decision boundary;
-  #
-  # Your model should only be trained (fit) against the training data (data_train)
-  # Once you've done this, you need use the model to transform both data_train
-  # and data_test from their original high-D image feature space, down to 2D
-
-  #
-  #
-  # TODO: Implement PCA here. ONLY train against your training data, but
-  # transform both your training + test data, storing the results back into
-  # data_train, and data_test.
-  #
-  # .. your code here ..
-
+  from sklearn.decomposition import PCA
+  
+  pca = PCA(n_components=2, svd_solver='full').fit(data_train)
+  
+  data_train = pca.transform(data_train)
+  data_test = pca.transform(data_test)
 else:
-  # INFO: Isomap is used *before* KNeighbors to simplify your high dimensionality
-  # image samples down to just 2 components! A lot of information has been is
-  # lost during the process, as I'm sure you can imagine. But if you have
-  # non-linear data that can be represented on a 2D manifold, you probably will
-  # be left with a far superior dataset to use for classification. Plus by
-  # having the images in 2D space, you can plot them as well as visualize a 2D
-  # decision surface / boundary. In the wild, you'd probably leave in a lot more
-  # dimensions, which is better for higher accuracy, but worse for visualizing the
-  # decision boundary;
-  #
-  # Your model should only be trained (fit) against the training data (data_train)
-  # Once you've done this, you need use the model to transform both data_train
-  # and data_test from their original high-D image feature space, down to 2D
+  from sklearn import manifold
+  
+  iso = manifold.Isomap(n_neighbors=5, n_components=2).fit(data_train)
 
-  #
-  # TODO: Implement Isomap here. ONLY train against your training data, but
-  # transform both your training + test data, storing the results back into
-  # data_train, and data_test.
-  #
-  # .. your code here ..
+  data_train = iso.transform(data_train)
+  data_test = iso.transform(data_test)
 
-
-
-
+from sklearn.neighbors import KNeighborsClassifier
 #
-# TODO: Implement KNeighborsClassifier here. You can use any K value from 1
-# through 20, so play around with it and attempt to get good accuracy.
-# Fit the classifier against your training data and labels.
-#
-# .. your code here ..
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(data_train, label_train)
 
-
-
-#
-# TODO: Calculate + Print the accuracy of the testing set (data_test and
-# label_test).
-#
-# .. your code here ..
-
-
+score = model.score(data_test, label_test)
+print score
 
 # Chart the combined decision boundary, the training data as 2D plots, and
 # the testing data as small images so we can visually validate performance.
