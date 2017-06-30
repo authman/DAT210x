@@ -120,7 +120,7 @@ drawPredictions(X_train, X_test, y_train, y_test)
 # By TRUE value, we mean, the actual provided label for that sample
 #
 # .. your code here ..
-print "1000th test label: ", true_1000th_test_value)
+print "1000th test label: ", true_1000th_test_value
 
 
 #
