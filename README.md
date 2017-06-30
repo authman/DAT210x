@@ -7,7 +7,7 @@ By Authman Apatira
 
 If you haven't already, [join the course](https://www.edx.org/course/programming-python-data-science-microsoft-dat210x-4)!
 
-<center>![Python36](Images/py36.png)</center>
+<center><img src='Images/py36.png' /></center>
 
 ## Getting Started
 
