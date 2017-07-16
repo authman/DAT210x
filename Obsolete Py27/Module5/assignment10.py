@@ -167,12 +167,12 @@ wavfile.write('Original Test Clip.wav', sample_rate, test)
 
 # 
 # TODO: Duplicate the same process for X_train, y_train. The only
-# differences being: 1) Your will be getting your audio data from
+# differences being: 1) You will be getting your audio data from
 # 'train' instead of from 'test', 2) Remember the shape of train that
 # you printed out earlier? You want to do this slicing but for ALL
 # samples (observations). For each observation, you want to slice
 # the first Provided_Portion * n_audio_samples audio features into
-# X_train, and the remaining go into y_test. All of this should be
+# X_train, and the remaining go into y_tran. All of this should be
 # accomplishable using regular indexing in two lines of code.
 #
 # .. your code here ..

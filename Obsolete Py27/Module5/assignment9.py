@@ -157,8 +157,8 @@ drawLine(model, X_test, y_test, "Accept(F.Undergrad)", score)
 # of another, you will attempt to do multivariate linear regression to
 # model one feature as a function of TWO other features.
 #
-# Model the amount charged for room and board AND the number of enrolled
-# students, as a function of the number of accepted students. To do
+# Model the number of accepted students as a function of the amount
+# charged for room and board _and_ the number of enrolled students. To do
 # this, instead of creating a regular slice for a single-feature input,
 # simply create a slice that contains both columns you wish to use as
 # inputs. Your training labels will remain a single slice.
