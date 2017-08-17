@@ -4,6 +4,7 @@ import time
 # Grab the DLA HAR dataset from:
 # http://groupware.les.inf.puc-rio.br/har
 # http://groupware.les.inf.puc-rio.br/static/har/dataset-har-PUC-Rio-ugulino.zip
+# A cached copy of the dataset is included in the course repository.
 
 
 #
