@@ -1,0 +1,36 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="k.1_h <= 0.5\nimpurity = 0.4735\nsamples = 3950\nvalue = [1520, 2430]"] ;
+1 [label="n.1_b <= 0.5\nimpurity = 0.2488\nsamples = 2844\nvalue = [414, 2430]"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="p.1_n <= 0.5\nimpurity = 0.4351\nsamples = 494\nvalue = [336, 158]"] ;
+1 -> 2 ;
+3 [label="e_e <= 0.5\nimpurity = 0.2581\nsamples = 381\nvalue = [323, 58]"] ;
+2 -> 3 ;
+4 [label="impurity = 0.0\nsamples = 58\nvalue = [0, 58]"] ;
+3 -> 4 ;
+5 [label="impurity = 0.0\nsamples = 323\nvalue = [323, 0]"] ;
+3 -> 5 ;
+6 [label="s.3_c <= 0.5\nimpurity = 0.2036\nsamples = 113\nvalue = [13, 100]"] ;
+2 -> 6 ;
+7 [label="impurity = 0.0\nsamples = 100\nvalue = [0, 100]"] ;
+6 -> 7 ;
+8 [label="impurity = 0.0\nsamples = 13\nvalue = [13, 0]"] ;
+6 -> 8 ;
+9 [label="o_o <= 0.5\nimpurity = 0.0642\nsamples = 2350\nvalue = [78, 2272]"] ;
+1 -> 9 ;
+10 [label="u_p <= 0.5\nimpurity = 0.4126\nsamples = 110\nvalue = [78, 32]"] ;
+9 -> 10 ;
+11 [label="s.3_y <= 0.5\nimpurity = 0.1327\nsamples = 84\nvalue = [78, 6]"] ;
+10 -> 11 ;
+12 [label="impurity = 0.0\nsamples = 78\nvalue = [78, 0]"] ;
+11 -> 12 ;
+13 [label="impurity = 0.0\nsamples = 6\nvalue = [0, 6]"] ;
+11 -> 13 ;
+14 [label="impurity = 0.0\nsamples = 26\nvalue = [0, 26]"] ;
+10 -> 14 ;
+15 [label="impurity = 0.0\nsamples = 2240\nvalue = [0, 2240]"] ;
+9 -> 15 ;
+16 [label="impurity = 0.0\nsamples = 1106\nvalue = [1106, 0]"] ;
+0 -> 16 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+}
